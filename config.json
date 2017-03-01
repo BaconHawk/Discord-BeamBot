@@ -1,6 +1,6 @@
 {
     "bot_token": "token_here",
-    "streamers": ["NITEHAWK07", "Bacon_Space"],
+    "streamers": ["NITEHAWK07", "Bacon_Space", "BaconHawk"],
     "ownerID": "",
     "channelID": [cids_in_strings]
 }
