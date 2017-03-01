@@ -26,23 +26,24 @@ function check() {
                  request('https://beam.pro/api/v1/channels/'+Config.streamers[i],
                     function(err,res,body){
                         const data = JSON.parse(body);
-                        if(!data) console.log(`The channel, ${Config.streamers[i]}, is not a valid beam.pro channel!`);
-                        if(data.online === false && row.status === 0) console.log(`${row.streamer} is already saved as offline!`);
+                        if(!data) bhlog(`The channel, ${Config.streamers[i]}, is not a valid beam.pro channel!`);
+                        if(data.online === false && row.status === 0) bhlog(`${row.streamer} is already saved as offline!`);
                         if(data.online === false && row.status == 1) {
                             sql.run(`UPDATE streamers SET status = 0 WHERE streamer = '${Config.streamers[i]}'`);
-                            console.log(`${Config.streamers[i]} is offline!`)
+                            bhlog(`${Config.streamers[i]} is offline!`)
                         };
                         if(row.status === 1 && data.online == true) return;
                         if(data.online === true && row.status == 0) {
                             sql.run(`UPDATE streamers SET status = 1 WHERE streamer = '${Config.streamers[i]}'`);
-                            console.log(`${row.streamer} is now Online!`)
+                            bhlog(`${row.streamer} is now Online!`)
                             for(let j = 0; j < Config.channelID.length; j++){
                                 const embed = new Discord.RichEmbed()
+				let bhcopy = 'BaconHawk'
                                     .setTitle('Beam Alerts')
                                     .setDescription(`${Config.streamers[i]} is now live!`)
                                     .addField(`Playing For:`, `${data.numFollowers} followers`,true)
                                     .addField(`${Config.streamers[i]} is Playing:`, `${data.type.name}`,true)
-                                    .setFooter('BaconHawk - NITEHAWK')
+                                    .setFooter(bhcopy)
                                     .setColor([0,45,255])
                                     .setTimestamp()
                                 bot.channels.get(Config.channelID[j]).sendEmbed(embed);
