@@ -2,17 +2,18 @@ const Discord = require('discord.js');
 const request = require('request');
 const sql = require('sqlite');
 sql.open('./streamers.sqlite');
+let bhlog = console.log
 let Config;
 
 //look for config
 try {
     Config = require('./config.json');
 } catch(e) {
-    console.log('Please create an config.json file in the main directory based off of the config.json.example file!\n' + e.stack);
+    bhlog('Please create an config.json file in the main directory based off of the config.json.example file!\n' + e.stack);
 	process.exit();
 }
 
-console.log('I am ready for work :)')
+bhlog('I am ready for work :)')
 
 const bot = new Discord.Client()
 
