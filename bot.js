@@ -3,6 +3,7 @@ const request = require('request');
 const sql = require('sqlite');
 sql.open('./streamers.sqlite');
 let bhlog = console.log
+let bherror = console.error
 let Config;
 
 //look for config
@@ -52,10 +53,10 @@ function check() {
                     });
     }    
 }).catch(() => {
-    console.error;
+    bherror;
     sql.run('CREATE TABLE IF NOT EXISTS streamers (streamer TEXT, status INTEGER)').then(() => {
       sql.run('INSERT INTO streamers (streamer, status) VALUES (?, ?)', [Config.streamers[i], 0]);
-      console.log(`Table created!`);
+      bhlog(`Table created!`);
     });
   });
     }
